@@ -50,11 +50,14 @@ router.post("/create",[
                 });
             }
 
-            let result = await User.findOne({ role : 'Art Manager'});
-            if (result) {
-                return res.status(400).json({
-                    message: "Art Manager Already Exists"
-                });
+            if(role == 'Art Manager')
+            {
+              let result = await User.findOne({ role : 'Art Manager'});
+              if (result) {
+                  return res.status(400).json({
+                      message: "Art Manager Already Exists"
+                  });
+              }
             }
 
             user = new User({firstname , lastname, role, email});
@@ -66,6 +69,7 @@ router.post("/create",[
               message : 'User has been created successfully!'
             });
         } catch (err) {
+          console.log('err',err);
           res.status(500).send({message : "Error in Saving"});
         }
     }
@@ -101,11 +105,14 @@ router.post("/update/:Id",[
             });
         }
 
-        let result = await User.findOne({ role : 'Art Manager'});
-        if (result) {
-            return res.status(400).json({
-                message: "Art Manager Already Exists"
-            });
+        if(role == 'Art Manager')
+        {
+          let result = await User.findOne({ role : 'Art Manager'});
+          if (result) {
+              return res.status(400).json({
+                  message: "Art Manager Already Exists"
+              });
+          }
         }
       }
 
